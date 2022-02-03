@@ -7,8 +7,10 @@
 <head>
     <meta name=”viewport” content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
-<body>
+<body class="text-center">
     <p>
         <h1>Thank you, @Model.Name!</h1>
         @if (Model.WillAttend == true)
@@ -20,7 +22,7 @@
             @: Sorry to hear that you can't
         }
     </p>
-        <p>Click <a asp-action="ListResponses">here</a> to see who is comming</p>
+        <p>Click <a class="here-link" asp-action="ListResponses">here</a> to see who is comming</p>
 </body>
 </html>
 

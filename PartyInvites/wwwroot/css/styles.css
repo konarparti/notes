@@ -16,3 +16,11 @@
 .validation-summary-valid {
     display: none;
 }
+
+.form-group {
+    margin: 10px;
+}
+
+.here-link {
+    text-decoration: none;
+}
