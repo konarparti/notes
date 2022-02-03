@@ -6,6 +6,7 @@ namespace PartyInvites.Controllers
 {
     public class HomeController : Controller
     {
+        public IRepository repository = Repository.SharedRepository;
         public IActionResult Index()
         {
             return View("HomePage");
@@ -22,7 +23,7 @@ namespace PartyInvites.Controllers
         {
             if (ModelState.IsValid)
             {
-                Repository.AddResponse(guestResponse);
+                repository.AddResponse(guestResponse);
                 return View("Thanks", guestResponse);
             }
             return View(); //обнаружена ошибка проверки достоверности
@@ -30,7 +31,7 @@ namespace PartyInvites.Controllers
 
         public ViewResult ListResponses()
         {
-            return View(Repository.Responses.Where(a => a.WillAttend == true));
+            return View(repository.Responses.Where(a => a.WillAttend == true));
         }
     }
 }

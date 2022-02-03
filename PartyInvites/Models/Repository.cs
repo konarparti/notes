@@ -6,20 +6,13 @@ using System.Threading.Tasks;
 
 namespace PartyInvites.Models
 {
-    public static class Repository
+    public class Repository : IRepository
     {
-        private static List<GuestResponse> responses = new List<GuestResponse>();
+        private static Repository sharedRepository = new Repository();
+        private List<GuestResponse> guestResponses = new List<GuestResponse>();
 
-        public static IEnumerable<GuestResponse> Responses
-        {
-            get
-            {
-                return responses;
-            }
-        }
-        public static void AddResponse(GuestResponse response)
-        {
-            responses.Add(response);
-        }
+        public static Repository SharedRepository => sharedRepository;
+        public IEnumerable<GuestResponse> Responses => guestResponses;
+        public void AddResponse(GuestResponse response) => guestResponses.Add(response);
     }
 }
