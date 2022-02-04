@@ -28,8 +28,7 @@ namespace Store.Controllers
                     ItemsPerPage = PageSize,
                     TotalItems = _productRepository.Products.Count()
                 }
-            });
-    
+            });    
     }
 }
 

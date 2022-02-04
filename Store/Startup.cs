@@ -25,8 +25,7 @@ namespace WebMVC
             
             services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(Config.ConnectionString));
 
-            services.AddMvc(options =>
-            {});              
+            services.AddMvc();   
 
         }
 
@@ -49,6 +48,11 @@ namespace WebMVC
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "pagination",
+                    pattern: "Products/Page{productPage}",
+                    defaults: new { controller = "Product", action = "ShowListProducts" }
+                    );
                 endpoints.MapControllerRoute("default", "{controller=Product}/{action=ShowListProducts}/{id?}");
             });
         }
