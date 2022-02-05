@@ -25,7 +25,9 @@ namespace WebMVC
             
             services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(Config.ConnectionString));
 
-            services.AddMvc();   
+            services.AddMvc();
+            services.AddMemoryCache(); // настраивает хранилище данных в памяти
+            services.AddSession(); // регистрирует службы, используемые для доступа к данным сеанса
 
         }
 
@@ -44,6 +46,7 @@ namespace WebMVC
             }
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();//позволяет системе сеансов автоматически ассоциировать запросы с сеансами, когда они поступают от клиента
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
