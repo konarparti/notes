@@ -18,16 +18,17 @@ namespace Store.Controllers
         {
             _productRepository = repository;
         }
-        public ViewResult ShowListProducts(int productPage = 1)
+        public ViewResult ShowListProducts(string? category, int productPage = 1)
             => View(new ProductsListViewModel
             {
-                Products = _productRepository.Products.Skip((productPage - 1) * PageSize).Take(PageSize),
+                Products = _productRepository.Products.Where(p => p.Category == null || p.Category == category).Skip((productPage - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = productPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = _productRepository.Products.Count()
-                }
+                    TotalItems = category == null ? _productRepository.Products.Count() : _productRepository.Products.Where(a => a.Category == category).Count()
+                },
+                CurrentCategory = category
             });    
     }
 }

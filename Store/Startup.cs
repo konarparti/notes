@@ -49,11 +49,33 @@ namespace WebMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "pagination",
-                    pattern: "Products/Page{productPage}",
+                    name: null,
+                    pattern: "{category}/Page{productPage:int}",
                     defaults: new { controller = "Product", action = "ShowListProducts" }
                     );
-                endpoints.MapControllerRoute("default", "{controller=Product}/{action=ShowListProducts}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: null,
+                    pattern: "Page{productPage:int}",
+                    defaults: new { controller = "Product", action = "ShowListProducts", productPage = 1 }
+                    );
+
+                endpoints.MapControllerRoute(
+                    name: null,
+                    pattern: "category",
+                    defaults: new { controller = "Product", action = "ShowListProducts", productPage = 1 }
+                    );
+
+                endpoints.MapControllerRoute(
+                    name: null,
+                    pattern: "",
+                    defaults: new { controller = "Product", action = "ShowListProducts", productPage = 1 }
+                    );
+
+                endpoints.MapControllerRoute(
+                   name: null,
+                   pattern: "{controller}/{action}/{id?}"
+                   );               
             });
         }
     }
