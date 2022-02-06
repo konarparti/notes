@@ -25,6 +25,9 @@ namespace WebMVC
             
             services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(Config.ConnectionString));
 
+            services.AddScoped<Cart>(s => SessionCart.GetCart(s));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddMvc();
             services.AddMemoryCache(); // настраивает хранилище данных в памяти
             services.AddSession(); // регистрирует службы, используемые для доступа к данным сеанса
