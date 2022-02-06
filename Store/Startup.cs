@@ -22,7 +22,8 @@ namespace WebMVC
         {
             Configuration.Bind("Project", new Config());
             services.AddTransient<IProductRepository, EFProductRepository>();
-            
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
+
             services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(Config.ConnectionString));
 
             services.AddScoped<Cart>(s => SessionCart.GetCart(s));
