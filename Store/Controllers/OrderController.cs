@@ -28,9 +28,12 @@ namespace Store.Controllers
             {
                 ModelState.AddModelError("", "Sorry, your cart is empty");
             }
-            if (ModelState.IsValid)
+            else
             {
                 order.Lines = _cart.Lines.ToArray();
+            }            
+            if (ModelState.IsValid)
+            {                
                 _repository.SaveOrder(order);
                 return RedirectToAction(nameof(Completed));
             }
