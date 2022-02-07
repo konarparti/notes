@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Store.Models;
 using Store.Models.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,24 @@ namespace Store.Controllers
         }
 
         public ViewResult Index() => View(_repository.Products);
+
+        public ViewResult Edit(Guid productID)
+        {
+            return View(_repository.Products.FirstOrDefault(p => p.ProductID == productID));
+        }
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.SaveProduct(product);
+                TempData["message"] = $"{product.Name} has been saved";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(product); //ошибка в значении данных
+            }
+        }
     }
 }

@@ -1,12 +1,12 @@
 ﻿
-//класс реализует интерфейс IProductRepository возвращая в качестве значения свойства Products фиксированную коллекцию объектов Product
+//класс реализует интерфейс IProductRepository возвращая в качестве значения свойства Products фиктивную коллекцию объектов Product
 //Метод AsQueryable() применяется для преобразования фикисрованной коллекции объектов в IQueryable<Product>
 
 using Store.Models.Repositories.Abstract;
 
 namespace Store.Models.Repositories.Fake
 {
-    public class FakeProductRepository : IProductRepository
+    public class FakeProductRepository /* : IProductRepository*/
     {
         public IQueryable<Product> Products => new List<Product>()
         {
