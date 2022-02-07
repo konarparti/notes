@@ -159,5 +159,34 @@ namespace Store.Tests
             mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());// проверка того, что к хранилищу был запрос
             Assert.IsType<ViewResult>(result); // проверка типа результата
         }
+
+        /// <summary>
+        /// тестирование метода действия Delete [HTTPPOST]. Проверка корректного удаления товара при корректных значениях параметров
+        /// </summary>
+        [Fact]
+        public void CanDeleteValidProducts()
+        {
+            var prod = new Product { ProductID = new Guid("2245a2f8-c292-42d8-8914-ae74ee782a72"), Name = "Test" };
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns((new Product[]
+           {
+                new Product
+                {
+                    ProductID = new Guid("054907fb-4ac2-4772-ac91-b5bf4f1fca60"),
+                    Name = "P1"
+                },
+                prod,
+                new Product
+                {
+                    ProductID = new Guid("2245a2f8-c292-42d8-8914-ae74ee782a72"),
+                    Name = "P3"
+                }
+           }).AsQueryable());
+            var target = new AdminController(mock.Object);
+
+            target.Delete(prod.ProductID);
+
+            mock.Verify(m => m.DeleteProduct(prod.ProductID));//проверка того, что был вызван метод удаления в хранилище с корректным объектом Product
+        }
     }
 }

@@ -16,6 +16,18 @@ namespace Store.Models.Repositories.EntityFramework
         }
         public IQueryable<Product> Products => _context.Products;
 
+        public Product DeleteProduct(Guid productID)
+        {
+            var dbEntry = _context.Products.FirstOrDefault(p => p.ProductID == productID);
+
+            if(dbEntry != null)
+            {
+                _context.Products.Remove(dbEntry);
+                _context.SaveChanges();
+            }
+            return dbEntry;
+        }
+
         public void SaveProduct(Product product)
         {
             if(product.ProductID == Guid.Empty)

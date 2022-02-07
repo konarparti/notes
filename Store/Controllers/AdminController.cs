@@ -38,5 +38,18 @@ namespace Store.Controllers
                 return View(product); //ошибка в значении данных
             }
         }
+
+        public ViewResult Create() => View("Edit", new Product());
+
+        [HttpPost]
+        public IActionResult Delete(Guid productID)
+        {
+            Product product = _repository.DeleteProduct(productID);
+            if(product != null)
+            {
+                TempData["message"] = $"{product.Name} was deleted";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
