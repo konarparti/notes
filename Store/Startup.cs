@@ -21,10 +21,14 @@ namespace WebMVC
         public void ConfigureServices(IServiceCollection services)
         {
             Configuration.Bind("Project", new Config());
+            Configuration.Bind("Identity", new IdentityConfig());
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();
 
             services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(Config.ConnectionString));
+            services.AddDbContext<AppIdentityDbContext>(x => x.UseSqlServer(IdentityConfig.ConnectionString));
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
 
             services.AddScoped<Cart>(s => SessionCart.GetCart(s));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -52,6 +56,8 @@ namespace WebMVC
             app.UseStaticFiles();
             app.UseSession();//позволяет системе сеансов автоматически ассоциировать запросы с сеансами, когда они поступают от клиента
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

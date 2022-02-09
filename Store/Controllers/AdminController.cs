@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Models;
 using Store.Models.Repositories.Abstract;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Store.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IProductRepository _repository;

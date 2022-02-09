@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Store.Models;
 using Store.Models.Repositories.Abstract;
 using System;
@@ -19,10 +20,12 @@ namespace Store.Controllers
             _cart = cart;
         }
 #pragma warning disable 
+        [Authorize]
         public ViewResult ShowListOrder() => View(_repository.Orders.Where(o => !o.Shipped));
 #pragma warning enable
 
         [HttpPost]
+        [Authorize]
         public IActionResult MarkShipped(int orderID)
         {
             Order order = _repository.Orders.FirstOrDefault(o => o.OrderID == orderID);
