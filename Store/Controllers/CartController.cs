@@ -14,7 +14,7 @@ namespace Store.Controllers
     public class CartController : Controller 
     {
         private readonly IProductRepository _repository;
-        private readonly Cart cart;
+        private Cart cart;
         public CartController(IProductRepository repository, Cart carService)
         {
             _repository = repository;
@@ -46,6 +46,27 @@ namespace Store.Controllers
             if (product != null)
             {                
                 cart.RemoveLine(product);
+            }
+            return RedirectToAction("Index", new { returnUrl });
+        }
+
+        [HttpPost]
+        public RedirectToActionResult UpQuantity(Guid productId, string returnUrl)
+        {
+            var product = _repository.Products.FirstOrDefault(p => p.ProductID == productId);
+            if(product != null)
+            {
+                cart.UpQuantity(product);
+            }
+            return RedirectToAction("Index", new { returnUrl });
+        }
+
+        public RedirectToActionResult DownQuantity(Guid productId, string returnUrl)
+        {
+            var product = _repository.Products.FirstOrDefault(p => p.ProductID == productId);
+            if (product != null)
+            {
+                cart.DownQuantity(product);
             }
             return RedirectToAction("Index", new { returnUrl });
         }

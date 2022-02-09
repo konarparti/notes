@@ -12,12 +12,12 @@
         <div class="row">
             <a class="col navbar-brand" href="/">STORE</a>
         </div>
-        <div class="" style="margin: 0 10px 0 0">
+        <div class="col-auto m-2">
             @await Component.InvokeAsync("CartSummary")
         </div>
     </div>
     <div class="row m-1 p-1">
-        <div id="categories" class="col-3">
+        <div id="categories" class="col-auto">
             @await Component.InvokeAsync("NavMenu")
         </div>
         <div class="col-9">

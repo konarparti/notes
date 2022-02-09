@@ -30,13 +30,13 @@
     </script>
 
 </head>
-<body class="m-1 p-1">
-    <div class="bg-infо p-2 row">
+<body class="">
+    <div class="p-2 mb-2 bg-dark row text-white">
         <div class="col">
             <h4>@ViewBag.Title</h4>
         </div>
-        <div class="col-2">
-            <a class="btn btn-sm btn-primary" asp-action=Logout asp-controller=Account>Log Out</a>
+        <div class="col-auto">
+            <a class="btn btn-sm btn-light fw-bold" asp-action=Logout asp-controller=Account>Log Out</a>
         </div>
     </div>
     @if (TempData["message"] != null)

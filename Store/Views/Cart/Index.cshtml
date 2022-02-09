@@ -14,7 +14,23 @@
         @foreach (var line in Model.Cart.Lines)
         {
             <tr>
-                <td class="text-center">@line.Quantity</td>
+                <td class="text-center">
+                    <form asp-action="UpQuantity" method="post" class="m-2 fw-bold d-inline">
+                        <input type="hidden" name="ProductID" value="@line.Product.ProductID" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-sm btn-success">
+                            +
+                        </button>
+                    </form>
+                    @line.Quantity
+                    <form asp-action="DownQuantity" method="post" class="m-2 fw-bold d-inline">
+                        <input type="hidden" name="ProductID" value="@line.Product.ProductID" />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            -
+                        </button>
+                    </form>
+                </td>
                 <td class="text-left">@line.Product.Name</td>
                 <td class="text-right">@line.Product.Price.ToString("c")</td>
                 <td class="text-right">

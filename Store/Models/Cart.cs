@@ -33,6 +33,27 @@ namespace Store.Models
             }            
         }
 
+        public virtual void UpQuantity(Product product)
+        {
+            var line = lineCollection.Where(p => p.Product.ProductID == product.ProductID).FirstOrDefault();
+            if (line != null)
+            {
+                line.Quantity++;                
+            }
+        }
+        public virtual void DownQuantity(Product product)
+        {
+            var line = lineCollection.Where(p => p.Product.ProductID == product.ProductID).FirstOrDefault();
+            if (line != null && line.Quantity > 0)
+            {
+                line.Quantity--;
+                if (line.Quantity == 0)
+                {
+                    RemoveLine(product);
+                }
+            }            
+        }
+
         public virtual void RemoveLine(Product product) => lineCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
         public virtual decimal ComputeTotalValue() => lineCollection.Sum(l => l.Product.Price * l.Quantity);
         public virtual void ClearCart() => lineCollection.Clear();

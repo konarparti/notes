@@ -25,6 +25,18 @@ namespace Store.Models
             base.AddItem(product, quantity);
             Session.SetJson("Cart", this);
         }
+
+        public override void UpQuantity(Product product)
+        {
+            base.UpQuantity(product);
+            Session.SetJson("Cart", this);
+        }
+
+        public override void DownQuantity(Product product)
+        {
+            base.DownQuantity(product);
+            Session.SetJson("Cart", this);
+        }
         public override void RemoveLine(Product product)
         {
             base.RemoveLine(product);
